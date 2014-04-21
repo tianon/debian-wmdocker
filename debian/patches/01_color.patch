@@ -1,0 +1,77 @@
+Index: docker-1.4/docker.c
+===================================================================
+--- docker-1.4.orig/docker.c
++++ docker-1.4/docker.c
+@@ -24,6 +24,7 @@ int width = 0, height = 0;
+ int border = 1; /* blank area around icons. must be > 0 */
+ gboolean horizontal = TRUE; /* layout direction */
+ int icon_size = 24; /* width and height of systray icons */
++static const char *colortext = NULL;
+ 
+ static char *display_string = NULL;
+ /* excluding the border. sum of all child apps */
+@@ -95,6 +96,15 @@ void parse_cmd_line()
+         g_printerr("-iconsize requires a parameter\n");
+         help = TRUE;
+       }
++    } else if (0 == strcasecmp(argv[i], "-color")) {
++      ++i;
++
++      if (i < argc) {
++        colortext = argv[i];
++      } else { /* argument doesn't exist */
++        g_printerr("-color requires a parameter\n");
++        help = TRUE;
++      }
+     } else {
+       if (argv[i][0] == '-')
+         help = TRUE;
+@@ -121,6 +131,9 @@ void parse_cmd_line()
+       g_print("  -iconsize SIZE    The size (width and height) to display\n"
+               "                    icons as in the system tray. Defaults to\n"
+               "                    24.\n");
++      g_print("  -color COLOR      The background color to use for the tray.\n"
++              "                    Defaults to whatever color the window\n"
++              "                    manager specifies.\n");
+       exit(1);
+     }
+   }
+@@ -154,6 +167,9 @@ void create_main_window()
+ {
+   XWMHints hints;
+   XTextProperty text;
++  Colormap colormap;
++  XColor xcolor;
++  char *name = "Docker";
+ 
+   /* the border must be > 0 if not in wmaker mode */
+   assert(wmaker || border > 0);
+@@ -167,7 +183,6 @@ void create_main_window()
+     
+   assert(win);
+ 
+-  char *name = "Docker";
+   XStringListToTextProperty(&name, 1, &text);
+   XSetWMName(display, win, &text);
+ 
+@@ -178,7 +193,19 @@ void create_main_window()
+   create_hint_win();
+   
+   XSync(display, False);
+-  XSetWindowBackgroundPixmap(display, win, ParentRelative);
++
++  if (colortext) {
++    colormap = DefaultColormap(display, DefaultScreen(display));
++    if (!XParseColor(display, colormap, colortext, &xcolor)) {
++      g_printerr("Couldn't find color in database: %s\n", colortext);
++      exit(1);
++    }
++    assert(XAllocColor(display, colormap, &xcolor));
++    XSetWindowBackground(display, win, xcolor.pixel);
++  } else {
++    XSetWindowBackgroundPixmap(display, win, ParentRelative);
++  }
++
+   XClearWindow(display, win);
+ }
+ 
