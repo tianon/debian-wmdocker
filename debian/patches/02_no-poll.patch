@@ -1,16 +1,16 @@
-Index: docker-1.4/docker.c
+Index: docker-1.5/docker.c
 ===================================================================
---- docker-1.4.orig/docker.c
-+++ docker-1.4/docker.c
-@@ -12,6 +12,7 @@
- #include <string.h>
- #include <stdlib.h>
- #include <unistd.h>
-+#include <errno.h>
+--- docker-1.5.orig/docker.c
++++ docker-1.5/docker.c
+@@ -5,6 +5,7 @@
+ #include "net.h"
  
- int argc;
- char **argv;
-@@ -257,6 +258,36 @@ void fix_geometry()
+ #include <assert.h>
++#include <errno.h>
+ #include <signal.h>
+ #include <stdlib.h>
+ #include <string.h>
+@@ -228,6 +229,36 @@ void fix_geometry()
  }
  
  
@@ -47,7 +47,7 @@ Index: docker-1.4/docker.c
  void event_loop()
  {
    XEvent e;
-@@ -264,9 +295,7 @@ void event_loop()
+@@ -235,9 +266,7 @@ void event_loop()
    GSList *it;
    
    while (!exit_app) {
@@ -58,7 +58,7 @@ Index: docker-1.4/docker.c
        switch (e.type)
        {
        case PropertyNotify:
-@@ -332,7 +361,6 @@ void event_loop()
+@@ -303,7 +332,6 @@ void event_loop()
          break;
        }
      }

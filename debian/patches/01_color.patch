@@ -1,8 +1,8 @@
-Index: docker-1.4/docker.c
+Index: docker-1.5/docker.c
 ===================================================================
---- docker-1.4.orig/docker.c
-+++ docker-1.4/docker.c
-@@ -24,6 +24,7 @@ int width = 0, height = 0;
+--- docker-1.5.orig/docker.c
++++ docker-1.5/docker.c
+@@ -22,6 +22,7 @@ int width = 0, height = 0;
  int border = 1; /* blank area around icons. must be > 0 */
  gboolean horizontal = TRUE; /* layout direction */
  int icon_size = 24; /* width and height of systray icons */
@@ -10,7 +10,7 @@ Index: docker-1.4/docker.c
  
  static char *display_string = NULL;
  /* excluding the border. sum of all child apps */
-@@ -95,6 +96,15 @@ void parse_cmd_line()
+@@ -93,6 +94,15 @@ void parse_cmd_line()
          g_printerr("-iconsize requires a parameter\n");
          help = TRUE;
        }
@@ -26,7 +26,7 @@ Index: docker-1.4/docker.c
      } else {
        if (argv[i][0] == '-')
          help = TRUE;
-@@ -121,6 +131,9 @@ void parse_cmd_line()
+@@ -119,6 +129,9 @@ void parse_cmd_line()
        g_print("  -iconsize SIZE    The size (width and height) to display\n"
                "                    icons as in the system tray. Defaults to\n"
                "                    24.\n");
@@ -36,25 +36,16 @@ Index: docker-1.4/docker.c
        exit(1);
      }
    }
-@@ -154,6 +167,9 @@ void create_main_window()
+@@ -152,6 +165,8 @@ void create_main_window()
  {
    XWMHints hints;
    XTextProperty text;
 +  Colormap colormap;
 +  XColor xcolor;
-+  char *name = "Docker";
+   char *name = "Docker";
  
    /* the border must be > 0 if not in wmaker mode */
-   assert(wmaker || border > 0);
-@@ -167,7 +183,6 @@ void create_main_window()
-     
-   assert(win);
- 
--  char *name = "Docker";
-   XStringListToTextProperty(&name, 1, &text);
-   XSetWMName(display, win, &text);
- 
-@@ -178,7 +193,19 @@ void create_main_window()
+@@ -176,7 +191,19 @@ void create_main_window()
    create_hint_win();
    
    XSync(display, False);
