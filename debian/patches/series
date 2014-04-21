@@ -1,3 +1,4 @@
 00_debian.patch
 01_color.patch
 02_no-poll.patch
+03_wmdocker.patch
