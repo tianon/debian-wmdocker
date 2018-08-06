@@ -1,9 +1,22 @@
-docker (1.5-1) UNRELEASED; urgency=medium
+docker (1.5-1) unstable; urgency=medium
 
+  [ Mahyuddin Susanto ]
+  * debian/pacthes/04_fix_ftbfs_binutils-gold.patch: fix FTBFS binutils-gold 
+    with ld --no-add-needed by declaring library after object. (LP: #704871)
+
+  [ Tianon Gravi ]
   * New upstream release (Closes: #292486)
-  * Change installed binary name to "wmdocker" (Closes: #740863)
 
- -- Tianon Gravi <admwiggin@gmail.com>  Mon, 21 Apr 2014 09:34:40 -0600
+  [ Paul Tagliamonte & Tianon Gravi ]
+  * Change installed binary name to "wmdocker" (Closes: #740863). This has
+    been done to bring Debian in-line with other Distros version of wmdocker
+    (such as Fedora 21+), and other Distros version of Docker.
+
+  [ Paul Tagliamonte ]
+  * I'm taking this package over for Ari, after years of service. Thank
+    you, Ari! You're the bestest.
+
+ -- Tianon Gravi <admwiggin@gmail.com>  Wed, 11 Jun 2014 15:45:14 -0400
 
 docker (1.4-5) unstable; urgency=low
 

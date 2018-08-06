@@ -1,8 +1,10 @@
 Source: docker
 Section: x11
 Priority: optional
-Maintainer: Ari Pollak <ari@debian.org>
-Build-Depends: debhelper (>= 9), libglib2.0-dev, libx11-dev
+Maintainer: Paul Tagliamonte <paultag@debian.org>
+Uploaders: Ari Pollak <ari@debian.org>,
+ Tianon Gravi <admwiggin@gmail.com>
+Build-Depends: debhelper (>= 9), libglib2.0-dev, libx11-dev, quilt
 Standards-Version: 3.9.5
 
 Package: docker
