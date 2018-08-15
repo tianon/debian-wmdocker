@@ -56,7 +56,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/docker.
-	$(MAKE) install PREFIX=$(CURDIR)/debian/docker/usr
+	$(MAKE) install PREFIX=$(CURDIR)/debian/wmdocker/usr
 
 
 # Build architecture-independent files here.

@@ -8,6 +8,16 @@ Build-Depends: debhelper (>= 9), libglib2.0-dev, libx11-dev, quilt
 Standards-Version: 3.9.5
 
 Package: docker
+Depends: wmdocker, ${misc:Depends}
+Architecture: all
+Section: oldlibs
+Description: transitional package
+ This is a transitional package for system tray docking application.
+ It can safely be removed.
+
+Package: wmdocker
+Replaces: docker (<< 1.5-1.1~)
+Breaks: docker (<< 1.5-1.1~)
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: System tray for KDE3/GNOME2 docklet applications
