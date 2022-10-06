@@ -1,3 +1,9 @@
+docker (1.5-3) UNRELEASED; urgency=medium
+
+  * Update watch file to version=4
+
+ -- Tianon Gravi <tianon@debian.org>  Thu, 06 Oct 2022 10:27:11 -0700
+
 docker (1.5-2) unstable; urgency=medium
 
   * Update email address (@debian.org)
